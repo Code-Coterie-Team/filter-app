@@ -108,10 +108,10 @@ const App = () =>{
           </ul>
          </div>
       </div>
-      <div className="grid grid-cols-3 grid-rows-4 gap-5">
+      <div className="grid grid-cols-3 grid-rows-4 gap-4">
         {product.map((product,index) => (
           <div className="flex flex-col gap-3 " key={index}>
-          <img src={product.image} alt="" className="w-72 h-40 rounded-md"/>
+          <img src={product.image} alt="" className="w-72 h-40 rounded-[4px]"/>
           <footer className="flex flex-col gap-2 text-center">
             <span className="text-gray-500 text-sm">{product.title}</span>
             <span className="text-sm font-bold">{product.price}</span>
