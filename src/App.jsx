@@ -93,8 +93,8 @@ const App = () =>{
   ]
   )
   return(
-    <div className="flex py-10 px-40 gap-5">
-      <div className="flex flex-col gap-4">
+    <div className="flex py-16 px-48 gap-7">
+      <div className="flex flex-col gap-6">
         <input type="search" name="search" id="search" placeholder="search..."
          className="bg-gray-200 py-1 px-2 rounded-md" />
          <div className="flex flex-col gap-2">
@@ -110,8 +110,8 @@ const App = () =>{
       </div>
       <div className="grid grid-cols-3 grid-rows-4 gap-5">
         {product.map((product,index) => (
-          <div className="flex flex-col gap-2 " key={index}>
-          <img src={product.image} alt="" className="w-72 h-40 rounded-sm"/>
+          <div className="flex flex-col gap-3 " key={index}>
+          <img src={product.image} alt="" className="w-72 h-40 rounded-md"/>
           <footer className="flex flex-col gap-2 text-center">
             <span className="text-gray-500 text-sm">{product.title}</span>
             <span className="text-sm font-bold">{product.price}</span>
