@@ -3,6 +3,7 @@ import { useState } from "react";
 const App = () =>{
 
   const [step, setStep] = useState(0);
+  const [filterValue,setFilterValue] = useState("All")
   const [product,setProduct] = useState( [
     {
       id: 'rec43w3ipXvP28vog',
@@ -92,24 +93,46 @@ const App = () =>{
     },
   ]
   )
+  
+  const handleClick = (event) => {   
+    const value = event.target.value;  
+    setFilterValue(value);  
+  };
   return(
     <div className="flex py-16 px-48 gap-7">
       <div className="flex flex-col gap-6">
         <input type="search" name="search" id="search" placeholder="search..."
-         className="bg-gray-200 py-1 px-2 rounded-md" />
+        className="bg-gray-200 py-1 px-2 rounded-md" />
          <div className="flex flex-col gap-2">
           <span className="text-sm font-medium">Company</span>
           <ul className="flex flex-col gap-3 text-gray-500 text-sm">
-            <li><button>All</button></li>
-            <li><button>Ikea</button></li>
-            <li><button>Marcos</button></li>
-            <li><button>Caressa</button></li>
-            <li><button>Liddy</button></li>
+            <li><button value="All" onClick={handleClick}>All</button></li>
+            <li><button value="Ikea" onClick={handleClick}>Ikea</button></li>
+            <li><button value="Marcos" onClick={handleClick}>Marcos</button></li>
+            <li><button value="Caressa" onClick={handleClick}>Caressa</button></li>
+            <li><button value="Liddy" onClick={handleClick}>Liddy</button></li>
           </ul>
          </div>
       </div>
       <div className="grid grid-cols-3 grid-rows-4 gap-4">
-        {product.map((product,index) => (
+        {product.filter((product) => {
+          if(filterValue === "All"){
+            return product;
+          }
+          else if(filterValue === "Ikea"){
+            return product.company === "ikea";
+          }
+          else if(filterValue === "Marcos"){
+            return product.company === "marcos";
+          }
+          else if(filterValue === "Caressa"){
+            return product.company === "caressa";
+          }
+          else{
+            return product.company === "liddy";
+          }
+          
+        } ).map((product,index) => (
           <div className="flex flex-col gap-3 " key={index}>
           <img src={product.image} alt="" className="w-72 h-40 rounded-[4px]"/>
           <footer className="flex flex-col gap-2 text-center">
@@ -117,6 +140,7 @@ const App = () =>{
             <span className="text-sm font-bold">{product.price}</span>
           </footer>
         </div>
+
         ))}
 
       </div>
