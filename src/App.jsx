@@ -1,9 +1,10 @@
 import { useState } from "react";
 
 const App = () =>{
-
-  const [step, setStep] = useState(0);
   const [filterValue,setFilterValue] = useState("All")
+  const [search,setSearch] = useState("")
+  const [emptySearch,setEmptySearch] = useState(false)
+  console.log(search);
   const [product,setProduct] = useState( [
     {
       id: 'rec43w3ipXvP28vog',
@@ -94,45 +95,38 @@ const App = () =>{
   ]
   )
   
-  const handleClick = (event) => {   
-    const value = event.target.value;  
+  const handleClick = (value) => {   
     setFilterValue(value);  
   };
+
+
   return(
-    <div className="flex py-16 px-48 gap-7">
+    <div className="flex p-4 justify-center gap-7">
+      <div className="w-10/12 py-4 flex gap-6 justify-center">
       <div className="flex flex-col gap-6">
-        <input type="search" name="search" id="search" placeholder="search..."
-        className="bg-gray-200 py-1 px-2 rounded-md" />
+        <input type="text" name="search" id="search" placeholder="search..."
+        className="bg-gray-200 py-1 px-2 rounded-md" value={search} 
+        onChange={(e) => {setSearch(e.target.value)}} />
          <div className="flex flex-col gap-2">
           <span className="text-sm font-medium">Company</span>
           <ul className="flex flex-col gap-3 text-gray-500 text-sm">
-            <li><button value="All" onClick={handleClick}>All</button></li>
-            <li><button value="Ikea" onClick={handleClick}>Ikea</button></li>
-            <li><button value="Marcos" onClick={handleClick}>Marcos</button></li>
-            <li><button value="Caressa" onClick={handleClick}>Caressa</button></li>
-            <li><button value="Liddy" onClick={handleClick}>Liddy</button></li>
+            <li><button  onClick={() => {handleClick("All")}}>All</button></li>
+            <li><button  onClick={() => {handleClick("Ikea")}}>Ikea</button></li>
+            <li><button  onClick={() => {handleClick("Marcos")}}>Marcos</button></li>
+            <li><button  onClick={() => {handleClick("Caressa")}}>Caressa</button></li>
+            <li><button  onClick={() => {handleClick("Liddy")}}>Liddy</button></li>
           </ul>
          </div>
       </div>
       <div className="grid grid-cols-3 grid-rows-4 gap-4">
-        {product.filter((product) => {
-          if(filterValue === "All"){
-            return product;
-          }
-          else if(filterValue === "Ikea"){
-            return product.company === "ikea";
-          }
-          else if(filterValue === "Marcos"){
-            return product.company === "marcos";
-          }
-          else if(filterValue === "Caressa"){
-            return product.company === "caressa";
-          }
-          else{
-            return product.company === "liddy";
-          }
-          
-        } ).map((product,index) => (
+          {product.filter((product) => {
+          if (filterValue == "All" ) return product;
+          return product.company === filterValue.toLowerCase();
+        }).filter((product,index,array)=>{
+          if (search.length == 0 ) return product
+          else if (product.title.includes(search)) return product
+
+        }).map((product,index) => (
           <div className="flex flex-col gap-3 " key={index}>
           <img src={product.image} alt="" className="w-72 h-40 rounded-[4px]"/>
           <footer className="flex flex-col gap-2 text-center">
@@ -140,10 +134,11 @@ const App = () =>{
             <span className="text-sm font-bold">{product.price}</span>
           </footer>
         </div>
-
-        ))}
-
+        ))
+      }
       </div>
+      </div>
+   
     </div>
 
   )
@@ -151,3 +146,4 @@ const App = () =>{
 
 
 export default App;
+
