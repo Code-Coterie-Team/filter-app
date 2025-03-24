@@ -99,11 +99,11 @@ function FilterData() {
   
   
     return(
-      <div className="flex p-4 justify-center gap-7">
-        <div className="w-10/12 py-4 flex gap-6 justify-center">
+      <div className="flex flex-col md:flex-row p-4 justify-center gap-7 pt-12">
+        <div className=" w-full md:w-10/12 py-4 flex flex-col  md:flex-row gap-6 justify-center">
         <div className="flex flex-col gap-6">
           <input type="text" name="search" id="search" placeholder="search..."
-          className="bg-gray-200 py-1 px-2 rounded-md" value={search} 
+          className="w-7/12 md:w-full bg-gray-200 py-1 px-2 rounded-md" value={search} 
           onChange={(e) => {setSearch(e.target.value)}} />
            <div className="flex flex-col gap-2">
             <span className="text-sm font-medium">Company</span>
@@ -116,7 +116,7 @@ function FilterData() {
             </ul>
            </div>
         </div>
-        <div className="grid grid-cols-3 grid-rows-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 md:grid-rows-4 gap-4 pb-14">
             {product.filter((product) => {
             if (filterValue == "All" ) return product;
             return product.company === filterValue.toLowerCase();
@@ -125,8 +125,8 @@ function FilterData() {
             else if (product.title.includes(search)) return product
   
           }).map((product,index) => (
-            <div className="flex flex-col gap-3 " key={index}>
-            <img src={product.image} alt="" className="w-72 h-40 rounded-[4px]"/>
+            <div className="flex flex-col gap-3 w-full items-center " key={index}>
+            <img src={product.image} alt="" className="w-full md:w-72 h-52 md:h-40 rounded-[4px]"/>
             <footer className="flex flex-col gap-2 text-center">
               <span className="text-gray-500 text-sm">{product.title}</span>
               <span className="text-sm font-bold">{product.price}</span>
